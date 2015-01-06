@@ -1,0 +1,4 @@
+library
+=======
+
+interesting js
