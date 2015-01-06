@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>PubSub-发布订阅模式</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+<style type="text/css">
+.main{width:1000px;margin: 0 auto;}
+.main a{width: 200px; height:40px;line-height:40px; margin: 30px;  text-align:center; display: block; background:#428bca; border-radius: 3px;}
+</style>
+</head>
+<body>
+
+<div class="main">
+	<a id="J_btn1" href="javascript:;"> click - Publish </a>
+	<a id="J_btn2" href="javascript:;"> click - Publish </a>
+	<a id="J_btn3" href="javascript:;"> click - Subscribe </a>
+	<a id="J_btn4" href="javascript:;"> mouseover - Subscribe </a>
+</div>
+
+<script src="../pub-sub.js"></script>
+
+<script type="text/javascript">
+window.onload = function(){
+	var oBtn1 = document.getElementById('J_btn1');
+	var oBtn2 = document.getElementById('J_btn2');
+	var oBtn3 = document.getElementById('J_btn3');
+	var oBtn4 = document.getElementById('J_btn4');
+
+	function fn1(){
+		console.log('fn1');
+	}
+	function fn2(args){
+		console.log(args);
+	}
+	function fn2(){
+		console.log('fn2');
+	}
+
+	oBtn1.onclick = function(){
+		PubSub.on('click',fn1);
+	}
+
+	oBtn3.onclick = function(){
+		PubSub.emit('click');
+	}
+
+	
+
+
+};
+</script>
+
+</body>
+</html>
