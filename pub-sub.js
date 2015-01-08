@@ -24,12 +24,11 @@
 	};
 
 	PubSub.unsub = function(eventType,handler){
-
 		var handlers = this.handlers;
 
 		if(eventType in handlers){
 
-			// handler存在 只remove这个订阅信息
+			// handler存在 remove对应的订阅信息
 			if(handler){
 
 				for(var i=0,len=handlers[eventType].length; i<len; i++){
@@ -43,6 +42,8 @@
 				handlers[eventType] = [];
 			}
 		}
+
+		return this;
 	};
 
 	// publish
