@@ -21,6 +21,7 @@
 	};
 
 	PubSub.emit = function(eventType){
+		// handler arguments
 		var handlerArgs = Array.prototype.slice.call(arguments,1);
 
 		for(var i=0,len=this.handlers[eventType].length; i<len; i++){

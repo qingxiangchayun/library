@@ -30,9 +30,6 @@ window.onload = function(){
 	function fn1(){
 		console.log('fn1');
 	}
-	function fn2(args){
-		console.log(args);
-	}
 	function fn2(){
 		console.log('fn2');
 	}
@@ -41,8 +38,14 @@ window.onload = function(){
 		PubSub.on('click',fn1);
 	}
 
+	oBtn2.onclick = function(){
+		PubSub.on('click',function(num1,num2,num3){
+			console.log( num1 + num2 + num3 )
+		});
+	}
+
 	oBtn3.onclick = function(){
-		PubSub.emit('click');
+		PubSub.emit('click',1,2,3);
 	}
 
 	
