@@ -1,5 +1,6 @@
 /**
  * PubSub 实现
+ * 中间层： topic / event
  */
 
 (function(window){
@@ -9,8 +10,9 @@
 		handlers : {}
 	};
 
-	PubSub.on = function(eventType, handler){
-
+	// subscribe
+	PubSub.sub = function(eventType, handler){
+		
 		if( !(eventType in this.handlers) ){
 			this.handlers[eventType] = [];
 		}
@@ -21,12 +23,35 @@
 		return this;
 	};
 
-	PubSub.emit = function(eventType){
+	PubSub.unsub = function(eventType,handler){
+
+		var handlers = this.handlers;
+
+		if(eventType in handlers){
+
+			// handler存在 只remove这个订阅信息
+			if(handler){
+
+				for(var i=0,len=handlers[eventType].length; i<len; i++){
+					if(handlers[eventType][i] == handler){
+						handlers[eventType].splice(i,1);
+						break;
+					}
+				}
+
+			}else{
+				handlers[eventType] = [];
+			}
+		}
+	};
+
+	// publish
+	PubSub.pub = function(eventType){
 		// handler arguments
 		var handlerArgs = Array.prototype.slice.call(arguments,1);
 
-		// 有发布事件，执行订阅
 		if( this.handlers[eventType] ){
+
 			for(var i=0,len=this.handlers[eventType].length; i<len; i++){
 				this.handlers[eventType][i].apply(this,handlerArgs);
 			}

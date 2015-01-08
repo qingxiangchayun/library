@@ -11,56 +11,44 @@
 </head>
 <body>
 
-<div class="main">
-	<a id="J_btn1" href="javascript:;"> click - Publish </a>
-	<a id="J_btn2" href="javascript:;"> click - Publish </a>
-	<a id="J_btn3" href="javascript:;"> click - Subscribe </a>
-	<a id="J_btn4" href="javascript:;"> mouseover - Publish(自定义事件)</a>
-	<a id="J_btn5" href="javascript:;"> mouseover - Subscribe(自定义事件)</a>
-</div>
-
 <script src="../pub-sub.js"></script>
 
 <script type="text/javascript">
 window.onload = function(){
-	var oBtn1 = document.getElementById('J_btn1');
-	var oBtn2 = document.getElementById('J_btn2');
-	var oBtn3 = document.getElementById('J_btn3');
-	var oBtn4 = document.getElementById('J_btn4');
-	var oBtn5 = document.getElementById('J_btn5');
+	
 
 	function fn1(){
 		console.log('fn1');
 	}
-	function fn2(){
-		console.log('fn2');
+	function fn2(args){
+		console.log(args);
 	}
 
-	oBtn1.onclick = function(){
-		PubSub.on('click',fn1);
-	};
-
-	oBtn2.onclick = function(){
-		PubSub.on('click',function(num1,num2,num3){
-			console.log( num1 + num2 + num3 )
-		});
-	};
-
-	oBtn3.onclick = function(){
-		PubSub.emit('click',1,2,3);
-	};
-
-	oBtn4.onmouseover = function(){
-		PubSub.on('hello world',function(){
-			console.log('hello world')
-		}).on('hello world1',function(){
-			console.log('hello world1')
-		});
+	function fn3(){
+		console.log('fn3');
 	}
 
-	oBtn5.onmouseover = function(){
-		PubSub.emit('hello world').emit('hello world1');
-	}
+	PubSub.sub('click',fn1);
+	PubSub.sub('click',fn2);
+	PubSub.sub('click',fn3);
+
+	
+	PubSub.sub('click',function(num1,num2,num3){
+		console.log( num1 + num2 + num3 )
+	});
+	
+	PubSub.unsub('click', fn3);
+
+	PubSub.pub('click',1,2,3);
+
+	PubSub.sub('hello world',function(){
+		console.log('hello world')
+	}).sub('hello world1',function(){
+		console.log('hello world1')
+	});
+
+
+	PubSub.pub('hello world').pub('hello world1');
 
 };
 </script>
