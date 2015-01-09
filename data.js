@@ -57,6 +57,9 @@
 			}else{
 				this.cache[unlock] = {};
 			}
+		},
+		dataAttr : function(){ // 处理 HTML5 data-* 
+
 		}
 
 	};
