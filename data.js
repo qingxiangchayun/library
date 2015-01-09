@@ -44,6 +44,9 @@
 			return cache;
 		},
 		get : function(elem,key){
+			
+			this.dataAttr(elem,key);
+
 			var cache = this.cache[this.key(elem)];
 
 			return key === undefined ? cache : cache[key];
@@ -58,8 +61,26 @@
 				this.cache[unlock] = {};
 			}
 		},
-		dataAttr : function(){ // 处理 HTML5 data-* 
+		dataAttr : function(elem,key){ // 处理 HTML5 data-*  attribute
+			var attr, name,value ;
 
+			if(key){
+				name = 'data-' + key;
+
+			}else{
+				attr = elem.attributes;
+
+				for(var i=0,len=attr.length; i<len; i++){
+					name = attr[i].name;
+					value = attr[i].value;
+
+					if( name.indexOf( 'data-') === 0){
+						name = name.substring(5);
+
+						this.set(elem,name,value);
+					}
+				}
+			}
 		}
 
 	};
