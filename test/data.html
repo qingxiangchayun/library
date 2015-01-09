@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>data-jquery数据缓存</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+<style type="text/css">
+.main{width:1000px;margin: 0 auto;}
+.main a{width: 300px; height:40px;line-height:40px; margin: 30px;  text-align:center; display: block; background:#428bca; border-radius: 3px;}
+</style>
+</head>
+<body>
+
+<div id="div">div</div>
+<div id="div1">div1</div>
+<div id="div2">div2</div>
+
+<script src="../data.js"></script>
+
+<script type="text/javascript">
+window.onload = function(){
+	
+	var data = Data;
+
+	var obj = {
+		bar : 'bar',
+		baz : 'baz'
+	}
+
+	var oDiv = document.getElementById('div');
+	var oDiv1 = document.getElementById('div1');
+	var oDiv2 = document.getElementById('div2');
+
+	data.set( oDiv, 'tagname' , 'div' );
+	data.set( oDiv, obj );
+
+	data.set( oDiv1, 'tagname1' , 'div1' );
+
+	data.set( oDiv2, 'tagname2' , 'div2' );
+	data.set( oDiv2, 'otherdata' , 'other' );
+
+	data.remove(oDiv2,'tagname2');
+
+
+	console.log( 'data 对象:', data );
+	console.log( 'data.key(div) :', data.key(oDiv) );
+	console.log( 'data.get(div2):', data.get(oDiv2) ) ;
+
+};
+</script>
+
+</body>
+</html>
