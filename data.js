@@ -17,8 +17,6 @@
 		};
 
 		this.expando = 'datacache' + Math.random();
-
-		console.log(this);
 	}
 
 	Data.uid = 1;
@@ -26,7 +24,6 @@
 	Data.prototype = {
 		constructor : Data,
 		key : function(elem){ 
-
 			var unlock = elem[this.expando];
 
 			if(!unlock){
@@ -40,10 +37,8 @@
 			}
 
 			return unlock;	
-
 		},
 		set : function(elem,data,value){
-
 			var unlock = this.key(elem);
 			var cache = this.cache[unlock];
 
@@ -58,9 +53,6 @@
 			return cache;
 		},
 		get : function(elem,key){
-			
-			//this.dataAttr(elem,key);
-
 			var cache = this.cache[this.key(elem)];
 
 			return key === undefined ? cache : cache[key];
@@ -80,7 +72,9 @@
 	data_user = new Data();
 	data_priv = new Data();
 
-	// 重写 data_uesr 的get方法 处理 HTML5 data-*  attribute
+	/**
+	 * 重写 data_uesr 的get方法 处理 HTML5 data-*  attribute
+	 */
 	data_user.get = function(elem,key){
 		var attr, name,value,cache;
 
@@ -103,13 +97,16 @@
 		}
 
 		cache = this.cache[this.key(elem)];
+
 		return key === undefined ? cache : cache[key];
 	};
 
 	exportData = data_user;
  
 	window.Data = exportData;
-	window.DataPvt = data_priv;
+	
+	// private
+	//window.DataPvt = data_priv;
 
 })(window);
 
