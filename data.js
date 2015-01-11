@@ -1,17 +1,31 @@
 /**
  * data 数据缓存
+ * 
  * export Data 
  */
 ;(function(window){
 	'use strict';
 
-	var Data = {
-		cache : {
+	var data_user, data_priv, exportData;
+
+	/**
+	 * Data 构造函数
+	 */
+	function Data(){
+		this.cache = {
 			0 : {}
-		},
-		uid : 1,
-		expando : Math.random,
-		key : function( elem ){
+		};
+
+		this.expando = 'datacache' + Math.random();
+
+		console.log(this);
+	}
+
+	Data.uid = 1;
+
+	Data.prototype = {
+		constructor : Data,
+		key : function(elem){ 
 
 			var unlock = elem[this.expando];
 
@@ -45,7 +59,7 @@
 		},
 		get : function(elem,key){
 			
-			this.dataAttr(elem,key);
+			//this.dataAttr(elem,key);
 
 			var cache = this.cache[this.key(elem)];
 
@@ -60,33 +74,42 @@
 			}else{
 				this.cache[unlock] = {};
 			}
-		},
-		dataAttr : function(elem,key){ // 处理 HTML5 data-*  attribute
-			var attr, name,value ;
-
-			if(key){
-				name = 'data-' + key;
-
-			}else{
-				attr = elem.attributes;
-
-				for(var i=0,len=attr.length; i<len; i++){
-					name = attr[i].name;
-					value = attr[i].value;
-
-					if( name.indexOf( 'data-') === 0){
-						name = name.substring(5);
-
-						this.set(elem,name,value);
-					}
-				}
-			}
 		}
-
 	};
 
-	
-	window.Data = Data;
+	data_user = new Data();
+	data_priv = new Data();
+
+	// 重写 data_uesr 的get方法 处理 HTML5 data-*  attribute
+	data_user.get = function(elem,key){
+		var attr, name,value,cache;
+
+		if( !data_priv.get(elem,'parsedDataAttrs') ){
+			attr = elem.attributes;
+
+			for(var i=0,len=attr.length; i<len; i++){
+				name = attr[i].name;
+				value = attr[i].value;
+
+				if( name.indexOf('data-') === 0){
+					name = name.substring(5);
+
+					this.set(elem,name,value);
+				}
+			}
+
+			// 需调用private的set方法
+			data_priv.set(elem, 'parsedDataAttrs', true);
+		}
+
+		cache = this.cache[this.key(elem)];
+		return key === undefined ? cache : cache[key];
+	};
+
+	exportData = data_user;
+ 
+	window.Data = exportData;
+	window.DataPvt = data_priv;
 
 })(window);
 

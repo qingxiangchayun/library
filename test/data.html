@@ -11,6 +11,8 @@
 </head>
 <body>
 
+<!-- 注释节点 -->
+
 <div id="div">div</div>
 <div id="div1">div1</div>
 <div id="div2">div2</div>
@@ -32,6 +34,7 @@ window.onload = function(){
 	var oDiv = document.getElementById('div');
 	var oDiv1 = document.getElementById('div1');
 	var oDiv2 = document.getElementById('div2');
+	var oDiv3 = document.getElementById('div3');
 
 	data.set( oDiv, 'tagname' , 'div' );
 	data.set( oDiv, obj );
@@ -47,6 +50,12 @@ window.onload = function(){
 	console.log( 'data 对象:', data );
 	console.log( 'data.key(div) :', data.key(oDiv) );
 	console.log( 'data.get(div2):', data.get(oDiv2) ) ;
+
+	console.log('data.get(div3)-html5-*', data.get(oDiv3));
+
+
+	console.log('private data obj',DataPvt.get(oDiv3));
+	
 
 
 
