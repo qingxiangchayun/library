@@ -1,19 +1,87 @@
 <!DOCTYPE HTML>
 <html lang="zh-CN">
+
 <head>
 <meta charset="UTF-8">
 <title>promise</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
-
 </head>
+
 <body>
 
 
-<script src="../data.js"></script>
-
 <script type="text/javascript">
+
+// ES6 promise
+/*var promise = new Promise(function(resolve, reject) {
+
+    // success
+
+    var num = Math.random();
+
+    console.log(num);
+
+    if (num > 0.5) {
+        resolve('success');
+    } else {
+        reject('error')
+    }
+
+});
+
+
+promise.then(function(str) {
+    alert(str);
+},function(str){
+	alert(str);
+});
+
+promise.then(function(){
+    setTimeout(function(){
+	   console.log(111);
+    },100)
+}).then(function(){
+	console.log(123);
+});*/
 
 </script>
 
+
+<script src="../promise.js"></script>
+
+<script type="text/javascript">
+// promise.js 中的  promise
+
+var promise = new Promise(function(resolve,reject){
+	if (Math.random() > 0.5) {
+        resolve('success');
+    } else {
+        reject('error')
+    }
+});
+
+/*promise.then( function(value){
+	alert(value);
+},function(reason){
+	alert(reason);
+})
+
+promise.then( function(value){
+    console.log(value);
+},function(reason){
+    console.log(reason);
+})*/
+
+promise.then(function(value){
+    alert(value);
+}).then(function(){
+    alert(1);
+})
+
+</script>
+
+
+
 </body>
+
 </html>
