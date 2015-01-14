@@ -72,11 +72,16 @@ promise.then( function(value){
     console.log(reason);
 })*/
 
-promise.then(function(value){
+var promise2 = promise.then(function(value){
     alert(value);
 }).then(function(){
     alert(1);
 })
+
+promise2.then(function(value){
+  console.log(111,value)
+})
+
 
 </script>
 

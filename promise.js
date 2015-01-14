@@ -39,11 +39,11 @@
 			throw new TypeError(' Constructor Promise requires "new".')
 		}
 
-		var _this = this;
 
 		this.status = 'pending';
 		this.queue = [];
 
+		var _this = this;
 		var resolve = function(value){
 			_this.resolve(value);
 		};
@@ -98,12 +98,12 @@
 
 				for(var i=0,len = _this.queue.length; i<len; i++){
 
-					if(status === 'fulfilled'){
-						_this.queue[i][0] && _this.queue[i][0](val);
+					if(status === 'fulfilled' && typeof _this.queue[i][0] === 'function'){
+						_this.queue[i][0](val);
 					}
 
-					if(status === 'rejected'){
-						_this.queue[i][1] && _this.queue[i][1](val);
+					if(status === 'rejected' && typeof _this.queue[i][1] === 'function'){
+						_this.queue[i][1](val);
 					}
 				}
 				
