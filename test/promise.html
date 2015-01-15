@@ -13,7 +13,54 @@
 <script type="text/javascript">
 
 // ES6 promise
-/*var promise = new Promise(function(resolve, reject) {
+var promise = new Promise(function(resolve, reject) {
+
+    // success
+
+    var num = Math.random();
+
+    console.log(num);
+
+    if (num > 0.5) {
+        resolve('success');
+    } else {
+        reject('error')
+    }
+
+});
+
+var p1 = new Promise(function(resolve, reject) {
+
+    // success
+
+    var num = Math.random();
+
+    console.log(num);
+
+    if (num > 0.5) {
+        resolve('success');
+    } else {
+        reject('error')
+    }
+
+});
+
+var p2 = new Promise(function(resolve, reject) {
+
+    // success
+
+    var num = Math.random();
+
+    console.log(num);
+
+    if (num > 0.5) {
+        resolve('success');
+    } else {
+        reject('error')
+    }
+
+});
+var p3 = new Promise(function(resolve, reject) {
 
     // success
 
@@ -30,7 +77,7 @@
 });
 
 
-promise.then(function(str) {
+/*promise.then(function(str) {
     alert(str);
 },function(str){
 	alert(str);
@@ -42,7 +89,15 @@ promise.then(function(){
     },100)
 }).then(function(){
 	console.log(123);
-});*/
+});
+*/
+/*Promise.all( '',[]).then(function(value){
+    console.log(1111111,value)
+} ).catch( function(err){
+    console.log(err);
+} )*/
+
+
 
 </script>
 
@@ -52,13 +107,13 @@ promise.then(function(){
 <script type="text/javascript">
 // promise.js 中的  promise
 
-var promise = new Promise(function(resolve,reject){
+/*var promise = new Promise(function(resolve,reject){
 	if (Math.random() > 0.5) {
         resolve('success');
     } else {
         reject('error')
     }
-});
+});*/
 
 /*promise.then( function(value){
 	alert(value);
@@ -72,7 +127,7 @@ promise.then( function(value){
     console.log(reason);
 })*/
 
-var promise2 = promise.then(function(value){
+/*var promise2 = promise.then(function(value){
     alert(value);
 }).then(function(){
     alert(1);
@@ -81,7 +136,13 @@ var promise2 = promise.then(function(value){
 promise2.then(function(value){
   console.log(111,value)
 })
+*/
 
+Promise.all( [ p1,p2 ]).then(function(value){
+    console.log(1111111,value)
+} ).catch( function(err){
+    console.log(err);
+} )
 
 </script>
 

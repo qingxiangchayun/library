@@ -79,6 +79,8 @@
 		}
 	}*/
 
+	
+
 	Promise.prototype = {
 		constructor : Promise,
 		resolve : function(value){
@@ -117,6 +119,46 @@
 		catch : function(onRejected){
 			return this.then(null,onRejected);
 		}
+	};
+
+	/**
+	 * promise all
+	 * @param  {[Array]} list  promise 对象集合
+	 * @return {[Object]}      [description]
+	 */
+	Promise.all = function(list){
+
+		var pms = new Promise(function(){});
+
+		var resolveCount = 0;
+
+		if( Object.prototype.toString.call(list) == '[object Array]'){
+
+			for(var i=0,len=list.length; i<len; i++){
+				if( list[i].constructor === Promise ){
+
+					list[i].then(function(){
+						resolveCount ++;
+
+						if(resolveCount == len){
+							psm.resolve();
+						}
+
+					},function(){
+						pms.rejected();
+					});
+
+				}else{
+					pms.resolve.apply(null,list);
+				}
+			}
+
+
+		}else{
+			throw new TypeError("Argument 1 of Promise.all can't be converted to a sequence.");
+		}
+
+		return pms;
 	};
 	
 	return Promise;
