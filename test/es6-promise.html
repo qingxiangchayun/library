@@ -156,7 +156,7 @@ function getUserQQ(){
 );
 */
 
-getId().then(
+/*getId().then(
     function(value){
         console.log('success1',value);
         return getUserName();
@@ -174,8 +174,48 @@ getId().then(
     function(err){
         console.log('error',err);
     }
+);*/
+
+getId().then(
+    function(value){
+        console.log('success1',value);
+        return getUserName();
+    }
+).then( 
+    function(value){
+        console.log('success2',value);
+        return getUserQQ();
+    }
+).catch(function(err){
+    console.log('promise catch',err);
+}).then(
+    function(){
+        console.log('123')
+    }
+)
+
+/*var promiseAll = Promise.all( [getId(), getUserName(), getUserQQ()] ).then(
+    function(value){
+        console.log('all ok',value)
+    },
+    function(value){
+        console.log('error',value)
+    }
 );
 
+console.log(1,promiseAll);
+setTimeout( function(){
+  console.log(2,promiseAll);  
+},3000)*/
+
+/*Promise.race( [ getUserName(), getUserQQ(),getId()] ).then(
+    function(value){
+        console.log('ok',value)
+    },
+    function(value){
+        console.log('error',value)
+    }
+);*/
 
 
 </script>
