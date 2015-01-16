@@ -1,0 +1,185 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<head>
+<meta charset="UTF-8">
+<title>promise</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+</head>
+<body>
+
+
+<script type="text/javascript">
+
+function getId(){
+    return new Promise(function(resolve,reject){
+        // 异步操作  setTimeout，ajax
+        // 结束时 调用resolve/reject
+       
+        setTimeout(function(){  
+
+            var num = Math.random();
+
+            if( num > 0.5 ){
+                resolve({
+                    success : true,
+                    id : num
+                });
+            }else{
+                reject({
+                    success : false,
+                    id : num
+                });
+            }
+
+        },500)
+
+    });
+}
+
+function getUserName(){
+    return new Promise(function(resolve,reject){
+        // 异步操作  setTimeout，ajax
+        // 结束时 调用resolve/reject
+       
+        setTimeout(function(){  
+
+            var num = Math.random();
+
+            if( num > 0.5 ){
+                resolve({
+                    success : true,
+                    userName : num
+                });
+            }else{
+                reject({
+                    success : false,
+                    userName : num
+                });
+            }
+
+        },1000)
+
+    });
+}
+
+function getUserQQ(){
+    return new Promise(function(resolve,reject){
+        // 异步操作  setTimeout，ajax
+        // 结束时 调用resolve/reject
+       
+        setTimeout(function(){  
+
+            var num = Math.random();
+
+            if( num > 0.5 ){
+                resolve({
+                    success : true,
+                    QQ : num
+                });
+            }else{
+                reject({
+                    success : false,
+                    QQ : num
+                });
+            }
+
+        },1500)
+
+    });
+}
+
+/*getId().then(
+    function(value){
+        console.log('success1',value)
+    },
+    function(reason){
+        console.log('error1',reason);
+    }
+).then(
+     function(value){
+        console.log('success2',value)
+    },
+    function(reason){
+        console.log('error2',reason);
+    }
+).then(
+     function(value){
+        console.log('success3',value)
+    },
+    function(reason){
+        console.log('error3',reason);
+    }
+);*/
+
+/*getId().then(
+    function(value){
+        console.log('success1',value);
+        return getUserName();
+    },
+    function(reason){
+        console.log('error1',reason);
+    }
+).then( 
+    function(value){
+        console.log('success2',value);
+    },
+    function(reason){
+        console.log('error2',reason);
+    }
+)*/
+
+
+/*getId().then(
+    function(value){
+        console.log('success1',value);
+        return getUserName();
+    },
+    function(reason){
+        console.log('error1',reason);
+    }
+).then( 
+    function(value){
+        console.log('success2',value);
+        return getUserQQ();
+    },
+    function(reason){
+        console.log('error2',reason);
+    }
+).then(
+    function(value){
+        console.log('success3',value);
+    },
+    function(reason){
+        console.log('error3',reason);
+    }
+);
+*/
+
+getId().then(
+    function(value){
+        console.log('success1',value);
+        return getUserName();
+    }
+).then( 
+    function(value){
+        console.log('success2',value);
+        return getUserQQ();
+    }
+).then(
+    function(value){
+        console.log('success3','QQ：'+value.QQ);
+    }
+).catch(
+    function(err){
+        console.log('error',err);
+    }
+);
+
+
+
+</script>
+
+</body>
+
+</html>
