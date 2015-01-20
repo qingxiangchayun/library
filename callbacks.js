@@ -62,7 +62,7 @@
 
 			firing = true;
 			//for(var i=0,len=list.length; i<len; i++){
-			//不缓存list.length  firing过程中 会add
+			//不缓存list.length   firing过程中会add 
 			for(var i=0;i<list.length; i++){
 				// 设置 stopOnFalse时，其他callbacks不执行
 				if( list[i].apply(this,data) === false && options.stopOnFalse){
@@ -72,12 +72,6 @@
 				}
 			}
 			firing = false;
-
-		/*	if(stack){
-				if(stack.length){
-					fire( stack.shift() );
-				}
-			}*/
 
 			if(options.once){
 				once = true;
@@ -110,9 +104,20 @@
 				}
 				return this;
 			},
+			remove : function(fn){
+				var removeIndex = inArray(fn,list);
+				if(removeIndex > -1){
+					list.splice(removeIndex,1);
+				}
+				return this;
+			},
 			has : function(fn){
 				// !!(list && list.length) --> list 为空返false
 				return fn ? inArray(fn,list) > -1 : !!(list && list.length)
+			},
+			empty : function(){
+				list = [];
+				return this;
 			}
 		}
 

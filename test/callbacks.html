@@ -23,9 +23,9 @@ function fn1(args){
 function fn2(args){
 	alert(2 +''+ args);
 }
-debugger;
+/*debugger;
 cb1.add(fn1);
-cb1.fire('$.callbacks')
+cb1.fire('$.callbacks')*/
 //cb1.add(fn2);
 //cb1.fire('$.callbacks1')
 
@@ -38,7 +38,7 @@ var cbT1 = callbacks('memory');
 
 function fnT1(args){
 	console.log('t1',args);
-	cbT1.add(fnT2);
+	//cbT1.add(fnT2);
 	//return false;
 }
 
@@ -47,7 +47,8 @@ function fnT2(args){
 }
 
 cbT1.add(fnT1);
-cbT1.fire('callbacks');
+cbT1.add(fnT2);
+cbT1.remove(fnT2).fire('callbacks');
 //cbT1.add(fnT2);
 
 </script>
