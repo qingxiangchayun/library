@@ -43,28 +43,41 @@
 	var callbacks = function( options ){
 		var memory,
 			fired, // options.once fired=true
-			firing,
+			firing, // 解决循环 
 			list = [],
-			stack,
-			once ;
+			stack = [],
+			once,
+			fireData ; // fire时传入的参数  add 调用 fire 时要用到
 
 		// options { once : true, memory : true } / {}
 		options = createOptions(options); 
 
 		var fire  = function(data){
+			fireData =  data;
+
 			// 设置once时, fire只执行一次
 			if(once){
 				return;
 			}
 
-			for(var i=0,len=list.length; i<len; i++){
+			firing = true;
+			//for(var i=0,len=list.length; i<len; i++){
+			//不缓存list.length  firing过程中 会add
+			for(var i=0;i<list.length; i++){
 				// 设置 stopOnFalse时，其他callbacks不执行
-				if( list[i].call(this,data) === false){
+				if( list[i].apply(this,data) === false && options.stopOnFalse){
 					// 防止add时调用
-					options.memory = false; 
+					memory = false; 
 					break;
 				}
 			}
+			firing = false;
+
+		/*	if(stack){
+				if(stack.length){
+					fire( stack.shift() );
+				}
+			}*/
 
 			if(options.once){
 				once = true;
@@ -75,19 +88,27 @@
 
 		var self = {
 			add : function(fn){
-				console.log(this);
 				if(!options.unique || !this.has(fn)){
 					list.push(fn);
 				}
-				
+		
+				if(firing){
+
 
 				// 设置memory时， add 时应执行fire方法
-				/*if(options.memory){
-					fire();
-				}*/
+				}else if(options.memory && fireData){
+					fire(fireData);
+				} 
+
+				return this;
 			},
-			fire : function(args){
-				fire(args);
+			fire : function(){
+				if(firing){
+					stack.push(arguments);
+				}else{
+					fire(arguments);
+				}
+				return this;
 			},
 			has : function(fn){
 				// !!(list && list.length) --> list 为空返false
