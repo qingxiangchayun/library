@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>callbacks</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+</head>
+<body>
+
+
+<script src="../jquery-2.0.3.js"></script>
+<script src="../callbacks.js"></script>
+
+<script type="text/javascript">
+var cb1 = $.Callbacks('memory');
+var cb2 = $.Callbacks();
+
+function fn1(args){
+	alert(1 +''+ args);
+}
+
+function fn2(args){
+	alert(2 +''+ args);
+}
+
+/*cb1.add(fn1);
+cb1.fire('$.callbacks')
+cb1.add(fn2);*/
+
+/*cb1.fire();
+cb2.fire();*/
+
+/* Callbacks test */
+
+var cbT1 = callbacks('once stopOnFalse unique');
+
+function fnT1(args){
+	console.log('t1',args);
+	//return false;
+}
+
+function fnT2(args){
+	console.log('t2',args);
+}
+
+cbT1.add(fnT1);
+cbT1.add(fnT1);
+cbT1.add(fnT2);
+cbT1.fire('callbacks');
+cbT1.add(fnT2);
+
+</script>
+
+</body>
+</html>
