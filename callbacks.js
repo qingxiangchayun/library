@@ -1,5 +1,5 @@
 /**
- * callbacks js jQuery Callback 代码实现
+ * callbacks js  jQuery Callbacks 简单实现
  * 
  */
 ;(function(root){
@@ -12,7 +12,7 @@
 	 */
 	var createOptions = function(options){
 		var obj = {};
-		var arr = [];
+		var arr;
 
 		if(options){
 			arr = options.match(/\S+/g) || [];
@@ -49,7 +49,6 @@
 			firingIndex,
 			list = [],
 			stack = [],
-			once,
 			fireData ; // fire时传入的参数  add 调用 fire 时要用到
 
 		// options { once : true, memory : true } / {}
@@ -58,33 +57,24 @@
 		var fire  = function(data){
 			fireData =  data;
 
-			// 设置once时, fire只执行一次
-			if(once){
-				return;
-			}
-
 			fired = firing = true;
 
 			firingIndex = firingStart || 0;
 			firingStart = 0;
 			firingLength = list.length;
 
-			console.log(firingLength,firingIndex)
-			
-			for(;firingIndex < firingLength; firingIndex++){
+			for(; firingIndex < firingLength; firingIndex++){
+				
 				// 设置 stopOnFalse时，其他callbacks不执行
 				if( list[firingIndex].apply(this,data) === false && options.stopOnFalse){
 					// 防止add时调用
-					memory = false; 
+					options.memory = false; 
 					break;
 				}
 			}
+			
 			firing = false;
 
-			if(options.once){
-				once = true;
-			}
-			
 		};
 
 
@@ -92,7 +82,7 @@
 			add : function(fn){
 				
 				// memory=true add时执行fire,之前执行完成的callbacks应不再执行  所以 for循环中i不应该一直从0开始
-				// i = current list.length
+				// firingStart = current list.length
 				var start = list.length;
 
 				if(!options.unique || !this.has(fn)){
@@ -102,7 +92,7 @@
 				if(firing){
 					firingLength = list.length;
 
-				// 设置memory时， add 时应执行fire方法
+				// 设置memory时，add时应执行fire方法
 				}else if(options.memory && fireData){
 					firingStart = start;
 					fire(fireData);
@@ -111,10 +101,13 @@
 				return this;
 			},
 			fire : function(){
-				if(firing){
-					stack.push(arguments);
-				}else{
-					fire(arguments);
+				// 设置once时, fire只执行一次
+				if(!options.once || !fired){
+					if(firing){
+						stack.push(arguments);
+					}else{
+						fire(arguments);
+					}
 				}
 				return this;
 			},
@@ -125,7 +118,6 @@
 					
 					// firing过程中 remove，需要修改 firingLength,firingIndex
 					if(firing){
-							
 
 						// [fn1,fn2,fn3]  
 						// case : fn1 firing remove fn1  list=[fn2,fn3] removeIndex 0 firingInex 0  index/length -1
@@ -146,8 +138,8 @@
 				return this;
 			},
 			has : function(fn){
-				// !!(list && list.length) --> list 为空返false
-				return fn ? inArray(fn,list) > -1 : !!(list && list.length)
+				//  list 为空返false
+				return fn ? inArray(fn,list) > -1 : list.length > 0
 			},
 			empty : function(){
 				list = [];
@@ -155,6 +147,9 @@
 				// empty 修改 firingLength 
 				firingLength = 0;
 				return this;
+			},
+			fired : function(){
+				return !!fired;
 			}
 		}
 

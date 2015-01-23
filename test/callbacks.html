@@ -15,12 +15,12 @@
 
 
 
-var cb1 = $.Callbacks('memory');
+var cb1 = $.Callbacks('once memory stopOnFalse');
 var cb2 = $.Callbacks();
 
 function fn1(args){
 	alert(1 +''+ args);
-	cb1.remove(fn1);
+	return false
 }
 
 function fn2(args){
@@ -31,10 +31,13 @@ function fn3(args){
 	alert(3 +''+ args);
 }
 
-/*cb1.add(fn1);
+cb1.add(fn1);
 cb1.add(fn2);
+cb1.fire('$.callbacks1')
 cb1.add(fn3);
-cb1.fire('$.callbacks')*/
+/*cb1.fire('$.callbacks')
+cb1.fire('$.callbacks')
+cb1.add(fn2)*/
 //cb1.fire('$.callbacks1')
 
 /*cb1.fire();
@@ -48,7 +51,7 @@ function fnT1(args){
 	console.log('t1',args);
 	//cbT1.remove(fn1);
 	//cbT1.add(fnT2);
-	//return false;
+	return false;
 }
 
 function fnT2(args){
@@ -62,6 +65,8 @@ function fnT3(args){
 cbT1.add(fnT1);
 cbT1.add(fnT2);
 cbT1.fire('T');
+cbT1.fire('T');
+
 cbT1.add(fnT3);
 
 </script>
