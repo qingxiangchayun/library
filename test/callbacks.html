@@ -12,21 +12,29 @@
 <script src="../callbacks.js"></script>
 
 <script type="text/javascript">
+
+
+
 var cb1 = $.Callbacks('memory');
 var cb2 = $.Callbacks();
 
 function fn1(args){
 	alert(1 +''+ args);
-	cb1.add(fn2);
+	cb1.remove(fn1);
 }
 
 function fn2(args){
 	alert(2 +''+ args);
 }
-/*debugger;
-cb1.add(fn1);
+
+function fn3(args){
+	alert(3 +''+ args);
+}
+
+/*cb1.add(fn1);
+cb1.add(fn2);
+cb1.add(fn3);
 cb1.fire('$.callbacks')*/
-//cb1.add(fn2);
 //cb1.fire('$.callbacks1')
 
 /*cb1.fire();
@@ -34,10 +42,11 @@ cb2.fire();*/
 
 /* Callbacks test */
 
-var cbT1 = callbacks('memory');
+var cbT1 = callbacks('once memory');
 
 function fnT1(args){
 	console.log('t1',args);
+	//cbT1.remove(fn1);
 	//cbT1.add(fnT2);
 	//return false;
 }
@@ -46,10 +55,14 @@ function fnT2(args){
 	console.log('t2',args);
 }
 
+function fnT3(args){
+	console.log('t3',args);
+}
+
 cbT1.add(fnT1);
 cbT1.add(fnT2);
-cbT1.remove(fnT2).fire('callbacks');
-//cbT1.add(fnT2);
+cbT1.fire('T');
+cbT1.add(fnT3);
 
 </script>
 

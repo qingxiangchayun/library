@@ -15,7 +15,7 @@
 		var arr = [];
 
 		if(options){
-			arr = options.match(/\S+/g);
+			arr = options.match(/\S+/g) || [];
 
 			for(var i=0,len=arr.length; i<len; i++){
 				obj[ arr[i] ] = true;
@@ -42,8 +42,11 @@
 	 */
 	var callbacks = function( options ){
 		var memory,
-			fired, // options.once fired=true
+			fired, 
 			firing, // 解决循环 
+			firingStart,
+			firingLength,
+			firingIndex,
 			list = [],
 			stack = [],
 			once,
@@ -60,12 +63,17 @@
 				return;
 			}
 
-			firing = true;
-			//for(var i=0,len=list.length; i<len; i++){
-			//不缓存list.length   firing过程中会add 
-			for(var i=0;i<list.length; i++){
+			fired = firing = true;
+
+			firingIndex = firingStart || 0;
+			firingStart = 0;
+			firingLength = list.length;
+
+			console.log(firingLength,firingIndex)
+			
+			for(;firingIndex < firingLength; firingIndex++){
 				// 设置 stopOnFalse时，其他callbacks不执行
-				if( list[i].apply(this,data) === false && options.stopOnFalse){
+				if( list[firingIndex].apply(this,data) === false && options.stopOnFalse){
 					// 防止add时调用
 					memory = false; 
 					break;
@@ -82,15 +90,21 @@
 
 		var self = {
 			add : function(fn){
+				
+				// memory=true add时执行fire,之前执行完成的callbacks应不再执行  所以 for循环中i不应该一直从0开始
+				// i = current list.length
+				var start = list.length;
+
 				if(!options.unique || !this.has(fn)){
 					list.push(fn);
 				}
 		
 				if(firing){
-
+					firingLength = list.length;
 
 				// 设置memory时， add 时应执行fire方法
 				}else if(options.memory && fireData){
+					firingStart = start;
 					fire(fireData);
 				} 
 
@@ -108,7 +122,27 @@
 				var removeIndex = inArray(fn,list);
 				if(removeIndex > -1){
 					list.splice(removeIndex,1);
+					
+					// firing过程中 remove，需要修改 firingLength,firingIndex
+					if(firing){
+							
+
+						// [fn1,fn2,fn3]  
+						// case : fn1 firing remove fn1  list=[fn2,fn3] removeIndex 0 firingInex 0  index/length -1
+						// case : fn1 firing remove fn2  list=[fn1,fn3] removeIndex 1 firingInex 0 index 不用修改
+						// case : fn2 firing remove fn1  list=[fn2,fn3] removeIndex 0 firingInex 1 index/length -1
+						
+						// removeIndex 值应该永远小于 firingLength
+						//if(removeIndex <= firingLength){
+							firingLength -= 1;
+						//}
+
+						if(removeIndex <= firingIndex){
+							firingIndex -= 1;
+						}
+					}
 				}
+
 				return this;
 			},
 			has : function(fn){
@@ -117,6 +151,9 @@
 			},
 			empty : function(){
 				list = [];
+
+				// empty 修改 firingLength 
+				firingLength = 0;
 				return this;
 			}
 		}
