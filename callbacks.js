@@ -48,7 +48,6 @@
 			firingLength,
 			firingIndex,
 			list = [],
-			stack = [],
 			fireData ; // fire时传入的参数  add 调用 fire 时要用到
 
 		// options { once : true, memory : true } / {}
@@ -103,11 +102,7 @@
 			fire : function(){
 				// 设置once时, fire只执行一次
 				if(!options.once || !fired){
-					if(firing){
-						stack.push(arguments);
-					}else{
-						fire(arguments);
-					}
+					fire(arguments);
 				}
 				return this;
 			},
