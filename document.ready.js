@@ -8,6 +8,11 @@
  * 1、DOMContentLoaded IE9+ 
  * 2、readystatechange document.readystate !=='loading' IE8 
  * 3、document.documentElement.doScroll
+ *
+ * 相关知识
+ * document.readyState  (https://html.spec.whatwg.org/multipage/dom.html#current-document-readiness)
+ * Returns "loading" while the Document is loading, 
+ * "interactive" once it is finished parsing but still loading sub-resources, and "complete" once it has loaded.
  * 
  */
 
@@ -70,7 +75,13 @@
 			document.attachEvent('onreadystatechange', domReady);
 		}
 
-		if(document.documentElement.doScroll){
+		var toplevel = false;
+
+		try {
+			toplevel = window.frameElement == null;
+		} catch(e) {}
+
+		if(document.documentElement.doScroll && toplevel){
 			doScrollCheck();
 		}
 	};
