@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>document.ready</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+
+</head>
+<body>
+
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+
+<!-- <script src="../document.ready.js"></script> -->
+<script src="../$.ready().js"></script>
+
+<script type="text/javascript">
+
+function bindEvent(obj,event,handle){
+
+	if(window.addEventListener){
+		obj.addEventListener( event , handle ,false);
+	}else{
+		obj.attachEvent( 'on' + event, function(){
+			handle.call(obj);
+		});
+	}
+}
+
+function domReady(){
+	alert(1);
+}
+
+function winReady(){
+	alert(2);
+}
+
+//alert(document.readyState)
+
+//bindEvent( window, 'load' , winReady);
+
+// ie9 +
+//bindEvent( document, 'DOMContentLoaded' , domReady);
+
+
+// ie 8
+/*document.attachEvent('onreadystatechange',function(){
+	alert(document.readyState);
+
+	if( document.readyState === 'complete'){
+		alert('DOM ready');
+	}
+});
+
+function doScroll(){
+	try {
+		document.documentElement.doScroll("left");
+	} catch (error){
+		setTimeout( doScroll, 1);
+		return ;
+	}
+
+	alert('ie DOM ready ~~')
+}
+
+doScroll();*/
+var start , end ;
+$(function(){
+	start = new Date().getTime();
+	console.log('dom ready1');
+})
+
+$(function(){
+	console.log('dom ready2');
+})
+
+$(function(){
+	console.log('dom ready3');
+})
+
+window.onload = function(){
+	end = new Date().getTime();
+	console.log('window.onload', end-start)
+}
+</script>
+
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/mhrm-dspd26884.jpg" />
+
+</body>
+</html>
