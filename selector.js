@@ -8,10 +8,10 @@
 	'use strict';
 
 	// RegExp ID
-	var rId = /^#\w+$/g; 
+	var rId = /^#\w+$/; 
 
 	// RegExp className 
-	var rClass = /^\.\w+/g;
+	var rClass = /^\.\w+/;
 
 	var rSpace = /\s+/g;
 
@@ -31,6 +31,7 @@
 
 			for(var i=0,len=list.length; i<len; i++){
 				// 将多个空格替换成一个空格  <div class="list   active">  'list   active' --> 'list active'
+				rSpace.lastIndex = 0;
 				currentClass = list[i].className.replace(rSpace,' ');
 
 				if( new RegExp('\\b'+className + '\\b','g').test( currentClass ) ){
