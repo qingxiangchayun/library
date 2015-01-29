@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>selector-选择器</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+</head>
+<body>
+
+<div id="grid"></div>
+
+<div class="grid"></div>
+<div class="grid grid-1"></div>
+<div class="grid grid-1    grid-2"></div> 
+
+<button class="btn active"></button>
+
+
+
+<script src="../selector.js"></script>
+
+<script type="text/javascript">
+window.onload = function(){
+
+	console.log( $('#grid') )
+
+	
+	/*console.log( $('.grid') )
+	console.log( $('.grid') )
+	console.log( $('.grid') )*/
+
+	var list1 = $('.grid');
+	var list2 = $('.grid');
+	var list3 = $('.grid');
+
+	console.log(list1,list2,list3)
+
+	var str = '.grid';
+
+	var rClass = /^.\w+/g;
+
+	// g
+
+	console.log( rClass.test(str) , rClass.lastIndex)
+	console.log( rClass.test(str) , rClass.lastIndex)
+	console.log( rClass.test(str) , rClass.lastIndex)
+}
+</script>
+
+</body>
+</html>

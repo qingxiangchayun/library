@@ -11,7 +11,7 @@
 	var rId = /^#\w+$/g; 
 
 	// RegExp className 
-	var rClass = /^.\w+/g;
+	var rClass = /^\.\w+/g;
 
 	var rSpace = /\s+/g;
 
@@ -25,7 +25,7 @@
 
 		// 浏览器支持 getElementsByClassName
 		if(document.getElementsByClassName){
-			return document.getElementsByClassName(elem);
+			return document.getElementsByClassName(className);
 		}else{
 			list = document.getElementsByTagName('*');
 
@@ -48,7 +48,7 @@
 	 * @return {[type]}          [description]
 	 */
 	var selector = function(str){
-		var className ;
+		var className;
 
 		if(!str){
 			throw new TypeError('arguments error');
@@ -56,16 +56,18 @@
 
 		// '#id'
 		if(rId.test(str)){
-			return document.getElementById(str);
+			return document.getElementById( str.substring(1) );
+
 		// '.class' '.classA.classB' '.classA .classB'
 		}else if(rClass.test(str)){
 			className = str.replace(/\./g,'');
 			return getByClassName(className)
 		}
 
-
-
 	};
+
+
+	window.$ = selector;
 
 })(window);
 
