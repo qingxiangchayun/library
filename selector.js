@@ -32,6 +32,7 @@
 		var list;
 
 		var currentClass;
+		var classArr = [];
 
 		// 浏览器支持 getElementsByClassName
 		/*if(document.getElementsByClassName){
@@ -48,6 +49,9 @@
 				/*if( new RegExp('\\b'+className + '\\b','g').test( currentClass ) ){
 					match.push(list[i]);
 				}*/
+
+				classArr = toolStrim( list[i].className ).split(/\s+/);
+
 			}
 
 			return match;
