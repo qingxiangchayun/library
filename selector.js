@@ -15,6 +15,16 @@
 
 	var rSpace = /\s+/g;
 
+	var toolStrim = function(str){
+		var trim = String.prototype.trim;
+
+		if(trim){
+			return trim.call(str);
+		}else{
+			return str.replace(/^\s+|\s+$/g,'');
+		}
+	}
+
 	var getByClassName = function(className){
 		var match = [];
 		
@@ -24,23 +34,24 @@
 		var currentClass;
 
 		// 浏览器支持 getElementsByClassName
-		if(document.getElementsByClassName){
+		/*if(document.getElementsByClassName){
 			return document.getElementsByClassName(className);
-		}else{
+		}else{*/
 			list = document.getElementsByTagName('*');
 
 			for(var i=0,len=list.length; i<len; i++){
 				// 将多个空格替换成一个空格  <div class="list   active">  'list   active' --> 'list active'
 				rSpace.lastIndex = 0;
 				currentClass = list[i].className.replace(rSpace,' ');
-
-				if( new RegExp('\\b'+className + '\\b','g').test( currentClass ) ){
+				
+				// test 方式不能匹配这种情况  传入className为 '.classA.classC'  html的class为 ' classA classB classC'
+				/*if( new RegExp('\\b'+className + '\\b','g').test( currentClass ) ){
 					match.push(list[i]);
-				}
+				}*/
 			}
 
 			return match;
-		}
+		//}
 	};
 
 	/**
@@ -61,8 +72,12 @@
 
 		// '.class' '.classA.classB' '.classA .classB'
 		}else if(rClass.test(str)){
-			className = str.replace(/\./g,'');
-			return getByClassName(className)
+
+			// 1、. 替换为 空格 .classA.classB --> classA classB
+			// 2、删除前后空格且将  
+			
+			className = toolStrim( str.replace(/\./g,' ') );
+			return getByClassName(className);
 		}
 
 	};
