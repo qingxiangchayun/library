@@ -1,10 +1,10 @@
 /**
  * selector.js  选择器
  *
- * return DOM NoteList HTMLCollection
+ * return DOM obj /  HTMLCollection / Node List  
  */
 
-(function(window){
+;(function(window){
 	'use strict';
 
 	// RegExp ID
@@ -12,8 +12,6 @@
 
 	// RegExp className 
 	var rClass = /^\.\w+/;
-
-	var rSpace = /\s+/g;
 
 	var toolStrim = function(str){
 		var trim = String.prototype.trim;
@@ -50,7 +48,7 @@
 		}
 
 		return result;
-	}
+	};
 
 	// classNameArr [classA] [classA,classB]
 	var getByClassName = function(classNameArr){
@@ -95,7 +93,7 @@
 	/**
 	 * 选择器
 	 * @param  {[String]} str 选择器 '#id' '.class' 'tag'
-	 * @return {[type]}          [description]
+	 * @return {[Object]}  DOM obj /  HTMLCollection / Node List        
 	 */
 	var selector = function(str){
 		var classNameArr;
@@ -116,11 +114,15 @@
 			
 			classNameArr = toolStrim(str).substring(1).split('.')
 			return getByClassName(classNameArr);
+		
+		// tag
+		}else{
+			return document.getElementsByTagName(str);
 		}
 
 	};
 
-
+	// export
 	window.$ = selector;
 
 })(window);
