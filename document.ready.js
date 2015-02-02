@@ -16,7 +16,7 @@
  * 
  */
 
-(function(window){
+;(function(window){
 	'use strict';
 
 	var callbackQueue = [];

@@ -3,7 +3,7 @@
  * 中间层： topic / event
  */
 
-(function(window){
+;(function(window){
 	'use strict';
 
 	var PubSub = {
