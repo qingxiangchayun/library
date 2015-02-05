@@ -32,6 +32,17 @@
 
 	})();
 
+	// 转驼峰
+	(function(){
+		var re = /-(\w)/g;
+		var str = 'border-top-width';
+
+		str.replace(re,function($0,$1){
+			return $1.toUpperCase();
+		});
+
+	})();
+
 	window.regexpLib = regexpLib;
 
 })(window);
