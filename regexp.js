@@ -43,6 +43,22 @@
 
 	})();
 
+	// 获取url对应的参数值
+	(function(){
+
+		//var str = location.search;
+		var str = '?search=123&categoryId=-1&serviceType=totalCourse';
+		
+		function queryUrlParam(key){
+			var re = new RegExp('[?&]' + key + '=([^&]+)');
+
+			return re.exec(str) ? re.exec(str)[1] : null;
+
+		}
+		
+
+	})();
+
 	window.regexpLib = regexpLib;
 
 })(window);
